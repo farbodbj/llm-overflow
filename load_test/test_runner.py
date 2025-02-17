@@ -36,7 +36,7 @@ class LoadTester:
             response_time = end_time - start_time
             tokens_per_second = metrics.tokens_generated / response_time if response_time > 0 else 0
 
-            return response_time, metrics.tokens_generated, tokens_per_second
+            return response_time, metrics.tokens_generated, tokens_per_second,  metrics.time_to_first_token
         except Exception as e:
             print(f"User {user_id} encountered an error: {e}")
             return -1, 0, 0 
@@ -55,6 +55,7 @@ class LoadTester:
             total_time = max(result[0] for result in results) 
             successful_requests = sum(1 for result in results if result[0] != -1)
             avg_tokens_per_second = total_tokens / total_time if total_time > 0 else 0
+            avg_time_to_first_token = sum(result[3] for result in results) / float(len(results))
 
         
             self.results.append({
@@ -63,6 +64,7 @@ class LoadTester:
                 "total_time": total_time,
                 "successful_requests": successful_requests,
                 "avg_tokens_per_second": avg_tokens_per_second,
+                "avg_time_to_first_token": avg_time_to_first_token
             })
 
             print(f"Results for {num_users} users:")
@@ -70,6 +72,7 @@ class LoadTester:
             print(f"  Total Tokens: {total_tokens}")
             print(f"  Total Time: {total_time:.2f} seconds")
             print(f"  Avg Tokens per Second: {avg_tokens_per_second:.2f}")
+            print(f"  Avg Time to first token: {avg_time_to_first_token:.2f}")
             print()
 
     def get_results(self) -> List[Dict]:
