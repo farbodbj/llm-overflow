@@ -28,7 +28,7 @@ A high-performance load testing tool designed to stress-test LLM (Large Language
 
 ### 1. Run a Basic Test
 ```bash
-main.py      --model codellama:7b
+python3 main.py      --model codellama:7b \
              --base-url https://api.openai.com/v1 \
              --api-key YOUR_API_KEY \
              --max-users 10
@@ -36,8 +36,8 @@ main.py      --model codellama:7b
 
 ### 2. Customize the Load
 ```bash
-main.py 
-             --model codellama:7b
+python3 main.py 
+             --model codellama:7b \
              --base-url https://your-llm-api.com \
              --api-key YOUR_KEY \
              --max-users 50 \
@@ -84,9 +84,9 @@ Renaissance art characteristics include...
 
 Then run:
 ```bash
-main.py 
-             --custom-corpus-path corpus.txt
-             --model codellama:7b
+python3 main.py \ 
+             --custom-corpus-path corpus.txt \
+             --model codellama:7b \
              --base-url https://your-llm-api.com \
              --api-key YOUR_KEY \
              --max-users 50 \
